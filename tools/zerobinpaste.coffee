@@ -16,7 +16,7 @@ program
     .parse(process.argv);
 
 
-[http, url, qs, fs, path] = ['http', 'url', 'querystring', 'fs', 'path'].map(require)
+[https, url, qs, fs, path] = ['https', 'url', 'querystring', 'fs', 'path'].map(require)
 
 
 # Parse config file, if any
@@ -72,7 +72,7 @@ paste_file = (content, name) ->
 
     # host.com -> http://host.com
     if not program.url.match(/^https?:\/\//)
-        program.url = 'http://' + program.url.replace(/^\/+/, '')
+        program.url = 'https://' + program.url.replace(/^\/+/, '')
 
     req_opts = url.parse(program.url)
     req_opts.method = 'POST'
@@ -84,7 +84,7 @@ paste_file = (content, name) ->
         .replace(/\/paste\/create\/?$/, '').replace(/\/+$/, '')
     req_opts.path = req_url_base + '/paste/create'
 
-    req = http.request req_opts, (res) ->
+    req = https.request req_opts, (res) ->
         req_reply = ''
         res.setEncoding('utf8')
         res.on 'data', (chunk) -> req_reply += chunk
